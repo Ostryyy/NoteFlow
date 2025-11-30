@@ -83,6 +83,27 @@ function App() {
             </div>
             <p style={{whiteSpace: 'pre-wrap'}}>{note.content}</p>
             
+            {note.attachment && (
+                <div style={{margin: '10px 0'}}>
+                    {note.attachment.type && note.attachment.type.startsWith('image/') ? (
+                        <img 
+                            src={URL.createObjectURL(note.attachment)} 
+                            alt="Załącznik" 
+                            style={{maxWidth: '100%', maxHeight: '200px', borderRadius: '4px'}} 
+                        />
+                    ) : (
+                        <a 
+                            href={URL.createObjectURL(note.attachment)} 
+                            download={note.attachment.name || 'download'}
+                            className="btn"
+                            style={{fontSize: '0.8em', textDecoration: 'none', border: '1px solid #ccc'}}
+                        >
+                            📎 Pobierz załącznik
+                        </a>
+                    )}
+                </div>
+            )}
+
             <div className="note-tags">
               {note.tags.map((tag, index) => (
                 <span key={index}>#{tag}</span>
