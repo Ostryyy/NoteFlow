@@ -17,13 +17,18 @@ const NoteForm = ({ onSave, editingNote, onCancel }) => {
     e.preventDefault();
     const tagsArray = tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
     
-    onSave({
-      id: editingNote ? editingNote.id : undefined,
+    const noteData = {
       title,
       content,
       tags: tagsArray,
       isFavorite: editingNote ? editingNote.isFavorite : false
-    });
+    };
+
+    if (editingNote) {
+        noteData.id = editingNote.id;
+    }
+    
+    onSave(noteData);
 
     setTitle('');
     setContent('');

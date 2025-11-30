@@ -25,10 +25,11 @@ function App() {
   };
 
   const handleSave = async (note) => {
-    if (note.id) {
+    if (note.id !== undefined && note.id !== null) {
       await dbActions.updateNote(note);
     } else {
-      await dbActions.addNote(note);
+      const { id, ...newNoteData } = note; 
+      await dbActions.addNote(newNoteData); 
     }
     setEditingNote(null);
     loadNotes();
